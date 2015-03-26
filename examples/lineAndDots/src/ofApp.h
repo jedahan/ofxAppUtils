@@ -1,18 +1,13 @@
-/*
- * Copyright (c) 2011 Dan Wilcox <danomatika@gmail.com>
+/* Copyright 2015 Jonathan Dahan <jonathan@jonathan.is>
+ * Copyright 2011 Dan Wilcox <danomatika@gmail.com>
  *
- * BSD Simplified License.
- * For information on usage and redistribution, and for a DISCLAIMER OF ALL
- * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
- *
- * See https://github.com/danomatika/ofxAppUtils for documentation
- *
+ * BSD Simplified License. See LICENSE.txt for details.
  */
 #pragma once
 
 #include "ofMain.h"
 
-#include "ofxAppUtils.h"
+#include "ofxScenes.h"
 
 // we only specify a pointer to the Particle Scene here, so tell the compiler
 // that it exists as a class and we can include the class header in testApp.cpp

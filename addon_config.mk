@@ -15,10 +15,10 @@
 # and the PG will write to the console the kind of error and in which line it is
 
 meta:
-	ADDON_NAME = ofxAppUtils
-	ADDON_DESCRIPTION = a set of utilities for OpenFrameworks application development
-	ADDON_AUTHOR = Dan Wilcox
-	ADDON_TAGS = "app" "scene manager" "transformer" "quadwarper" "particle manager"
-	ADDON_URL = http://github.com/danomatika/ofxAppUtils
+	ADDON_NAME = ofxScenes
+	ADDON_DESCRIPTION = a scene manager, extracted from Dan Wilcoxs ofxAppUtils
+	ADDON_AUTHOR = Jonathan Dahan
+	ADDON_TAGS = "app" "scene manager"
+	ADDON_URL = http://github.com/jedahan/ofxScenes
 
 common:

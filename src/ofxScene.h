@@ -1,139 +1,126 @@
-/*
+/* Copyright 2015 Jonathan Dahan <jonathan@jonathan.is>
  * Copyright (c) 2011-2012 Dan Wilcox <danomatika@gmail.com>
  *
- * BSD Simplified License.
- * For information on usage and redistribution, and for a DISCLAIMER OF ALL
- * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
- *
- * See https://github.com/danomatika/ofxAppUtils for documentation
- *
+ * BSD Simplified License. See LICENSE.txt for details.
  */
 #pragma once
 
-#include "ofxApp.h"
+#include "ofxScenesApp.h"
 #include "ofxTimer.h"
 
 /**
-	\class  Scene
-	\brief  application scene abstract class
+  \class  Scene
+  \brief  application scene abstract class
 **/
 class ofxScene :
 
-#ifdef TARGET_OF_IPHONE
-	public ofxiOSApp {
-#else
-	public ofBaseApp {
-#endif
-	
-	public:
-		
-		/// the singleSetup bool controls whether the scene's setup function
-		/// is called only once or each time a scene change is made
-		ofxScene(std::string name, bool singleSetup=true) :
-			_name(name), _bSetup(false), _bRunning(true),
-			_bEntering(false), _bEnteringFirst(false),
-			_bExiting(false), _bExitingFirst(false),
-			_bDone(false), _bSingleSetup(singleSetup) {}
-		virtual ~ofxScene() {}
-		
-	/// \section Main
-		
-		/// implement the regular ofBaseApp clalbacks functions
-		/// ie setup(), update(), draw(), etc
-		///
-		/// there are also the following functions for scene enter and exit
-		/// control
+  public ofBaseApp {
 
-		/// called when entering
-		virtual void updateEnter() {finishedEntering();};
+  public:
 
-		/// called when exiting
-		virtual void updateExit()	{finishedExiting();};
+    /// the singleSetup bool controls whether the scene's setup function
+    /// is called only once or each time a scene change is made
+    ofxScene(std::string name, bool singleSetup=true) :
+      _name(name), _bSetup(false), _bRunning(true),
+      _bEntering(false), _bEnteringFirst(false),
+      _bExiting(false), _bExitingFirst(false),
+      _bDone(false), _bSingleSetup(singleSetup) {}
+    virtual ~ofxScene() {}
 
-	/// \section Transitional Control
+  /// \section Main
 
-		/// start entering
-		inline void startEntering()     {_bEntering = true; _bEnteringFirst = true; _bDone = false;}
+    /// implement the regular ofBaseApp clalbacks functions
+    /// ie setup(), update(), draw(), etc
+    ///
+    /// there are also the following functions for scene enter and exit
+    /// control
 
-		/// the scene has finished entering (this should be called automatically by the scene itself)
-		inline void finishedEntering()  {_bEntering = false; _bEnteringFirst = false;}
+    /// called when entering
+    virtual void updateEnter() {finishedEntering();};
 
-		/// is this scene currently entering?
-		inline bool isEntering()        {return _bEntering;}
+    /// called when exiting
+    virtual void updateExit() {finishedExiting();};
 
-		/// is this scene entering for the first time?
-		inline bool isEnteringFirst()   {return _bEnteringFirst;}
+  /// \section Transitional Control
 
-		/// start exiting
-		inline void startExiting()      {_bExiting = true; _bExitingFirst = true;}
+    /// start entering
+    inline void startEntering()     {_bEntering = true; _bEnteringFirst = true; _bDone = false;}
 
-		/// the scene has finished exiting (this should be called automatically by the scene itself)
-		inline void finishedExiting()   {_bExiting = false; _bExitingFirst = false;}
+    /// the scene has finished entering (this should be called automatically by the scene itself)
+    inline void finishedEntering()  {_bEntering = false; _bEnteringFirst = false;}
 
-		/// is this scene currently exiting?
-		inline bool isExiting()         {return _bExiting;}
+    /// is this scene currently entering?
+    inline bool isEntering()        {return _bEntering;}
 
-		/// is this scene exiting for the first time?
-		inline bool isExitingFirst()    {return _bExitingFirst;}
+    /// is this scene entering for the first time?
+    inline bool isEnteringFirst()   {return _bEnteringFirst;}
 
-		/// this scene is done and wants to start exiting, note: does not start exiting
-		inline void done()              {_bDone = true;}
+    /// start exiting
+    inline void startExiting()      {_bExiting = true; _bExitingFirst = true;}
 
-		/// does this scene want to exit?
-		inline bool isDone()            {return _bDone;}
-		
-	/// \section Util
-		
-		/// run/pause
-		inline void run(bool yesno) {_bRunning = yesno;}
-		inline void runToggle()     {_bRunning = !_bRunning;}
+    /// the scene has finished exiting (this should be called automatically by the scene itself)
+    inline void finishedExiting()   {_bExiting = false; _bExitingFirst = false;}
 
-		/// get/set the scenes name
-		inline void setName(std::string name)   {_name = name;}
-		inline std::string getName()            {return _name;}
+    /// is this scene currently exiting?
+    inline bool isExiting()         {return _bExiting;}
 
-		/// is the scene currently running?
-		inline bool isRunning() {return _bRunning;}
+    /// is this scene exiting for the first time?
+    inline bool isExitingFirst()    {return _bExitingFirst;}
 
-		/// is the scene already setup?
-		inline bool isSetup()   {return _bSetup;}
-		
-		/// controls whether the scene's setup function
-		/// is called only once or each time a scene change is made
-		inline void setSingleSetup(bool single) {_bSingleSetup = single;}
-		inline bool usingSingleSetup()          {return _bSingleSetup;}
-		
-	private:
-	
-		std::string _name; ///< the name of this scene
-		bool _bSetup, _bRunning, _bEntering, _bEnteringFirst,
-			 _bExiting, _bExitingFirst, _bDone, _bSingleSetup;
+    /// this scene is done and wants to start exiting, note: does not start exiting
+    inline void done()              {_bDone = true;}
 
-	public:
-	
-		/// wrapper used to handle ofxScene magic behind the scenes ...
-		/// do not use directly!
-		class RunnerScene :
+    /// does this scene want to exit?
+    inline bool isDone()            {return _bDone;}
 
-		#ifdef TARGET_OF_IPHONE
-			public ofxiOSApp {
-		#else
-			public ofBaseApp {
-		#endif
+  /// \section Util
 
-			public:
+    /// run/pause
+    inline void run(bool yesno) {_bRunning = yesno;}
+    inline void runToggle()     {_bRunning = !_bRunning;}
 
-				RunnerScene(ofxScene* scene);
-				~RunnerScene();
+    /// get/set the scenes name
+    inline void setName(std::string name)   {_name = name;}
+    inline std::string getName()            {return _name;}
 
-				// need these for proper entering/exit, etc
-				void setup();
-				void update();
-				void draw();
-				void exit();
-				
-				ofxScene* scene;
-		};
-		
-		friend class RunnerScene; ///< used to wrap this app
+    /// is the scene currently running?
+    inline bool isRunning() {return _bRunning;}
+
+    /// is the scene already setup?
+    inline bool isSetup()   {return _bSetup;}
+
+    /// controls whether the scene's setup function
+    /// is called only once or each time a scene change is made
+    inline void setSingleSetup(bool single) {_bSingleSetup = single;}
+    inline bool usingSingleSetup()          {return _bSingleSetup;}
+
+  private:
+
+    std::string _name; ///< the name of this scene
+    bool _bSetup, _bRunning, _bEntering, _bEnteringFirst,
+       _bExiting, _bExitingFirst, _bDone, _bSingleSetup;
+
+  public:
+
+    /// wrapper used to handle ofxScene magic behind the scenes ...
+    /// do not use directly!
+    class RunnerScene :
+
+      public ofBaseApp {
+
+      public:
+
+        RunnerScene(ofxScene* scene);
+        ~RunnerScene();
+
+        // need these for proper entering/exit, etc
+        void setup();
+        void update();
+        void draw();
+        void exit();
+
+        ofxScene* scene;
+    };
+
+    friend class RunnerScene; ///< used to wrap this app
 };
